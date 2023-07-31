@@ -1,0 +1,14 @@
+###> league/oauth2-server-bundle ###
+/config/jwt/*.key
+###< league/oauth2-server-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+/vendor
+/var/cache
+/var/logs
+
+.idea/

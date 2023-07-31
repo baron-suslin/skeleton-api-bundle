@@ -1,0 +1,36 @@
+user.me:
+    path: /users/me
+    methods: GET
+    defaults: { _controller: action.user.fetch_current::executeAction }
+
+user.list:
+    path: /users
+    methods: GET
+    defaults: { _controller: action.user.list::executeAction }
+
+user.read:
+    path: /users/{id}
+    methods: GET
+    defaults: { _controller: action.user.fetch::executeAction }
+    requirements:
+        id: !php/const Ramsey\Uuid\Uuid::VALID_PATTERN
+
+user.create:
+    path: /users
+    methods: POST
+    defaults: { _controller: action.user.create::executeAction }
+
+user.update:
+    path: /users/{id}
+    methods: PATCH
+    defaults: { _controller: action.user.update::executeAction }
+    requirements:
+        id: !php/const Ramsey\Uuid\Uuid::VALID_PATTERN
+
+
+user.delete:
+    path: /users/{id}
+    methods: DELETE
+    defaults: { _controller: action.user.delete::executeAction }
+    requirements:
+        id: !php/const Ramsey\Uuid\Uuid::VALID_PATTERN

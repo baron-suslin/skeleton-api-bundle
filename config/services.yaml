@@ -1,0 +1,73 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: true
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # Tag all classes as doctrine entity listeners.
+    App\Listener\Entity\:
+        resource: '../src/Listener/Entity/'
+        tags:
+            - { name: 'doctrine.orm.entity_listener' }
+
+    # @todo vendor/requestum/api-bundle2/Action/BaseAction.php:79 change to $serializer = $this->get('app.serializer');
+    app.serializer:
+        class: Symfony\Component\Serializer\Serializer
+        public: true
+        arguments:
+            -
+                - '@serializer.denormalizer.unwrapping'
+                - '@core.normalizer.pagerfanta'
+                - '@core.normalizer.form_error'
+                - '@serializer.normalizer.problem'
+                - '@serializer.normalizer.uid'
+                - '@serializer.normalizer.datetime'
+                - '@serializer.normalizer.constraint_violation_list'
+                - '@serializer.normalizer.datetimezone'
+                - '@serializer.normalizer.dateinterval'
+                - '@serializer.normalizer.form_error'
+                - '@serializer.normalizer.backed_enum'
+                - '@serializer.normalizer.data_uri'
+                - '@serializer.normalizer.json_serializable'
+                - '@serializer.denormalizer.array'
+                - '@serializer.normalizer.object'
+            -
+                - '@serializer.encoder.xml'
+                - '@serializer.encoder.json'
+                - '@serializer.encoder.yaml'
+                - '@serializer.encoder.csv'
+
+    security.authorization_checker:
+        class: Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+        arguments:
+            - '@security.token_storage'
+            - '@debug.security.access.decision_manager'
+            - false
+            - false
+        public: true
+
+    form.factory:
+        class: Symfony\Component\Form\FormFactory
+        arguments:
+            - '@form.registry'
+        public: true

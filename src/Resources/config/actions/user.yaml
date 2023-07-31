@@ -1,0 +1,32 @@
+services:
+    action.user.list:
+        parent: core.action.abstract
+        class: App\Action\User\UserList
+        tags: [ 'controller.service_arguments' ]
+
+#    action.user.fetch_current:
+#        parent: core.action.abstract
+#        class: Requestum\ApiBundle\Action\FetchAuthUserAction
+#        arguments:
+#            - App\Entity\User
+#        tags: [ 'controller.service_arguments' ]
+
+    action.user.fetch:
+        parent: core.action.abstract
+        class: App\Action\User\UserFetch
+        tags: [ 'controller.service_arguments' ]
+
+    action.user.create:
+        parent: core.action.abstract
+        class: App\Action\User\UserCreate
+        tags: [ 'controller.service_arguments' ]
+
+    action.user.update:
+        parent: core.action.abstract
+        class: App\Action\User\UserUpdate
+        tags: ['controller.service_arguments']
+
+    action.user.delete:
+        parent: core.action.abstract
+        class: App\Action\User\UserDelete
+        tags: [ 'controller.service_arguments' ]

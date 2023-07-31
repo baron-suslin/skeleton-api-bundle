@@ -1,0 +1,4 @@
+App\Entity\User:
+  user-authorized:
+    email: 'admin@test.com'
+    plainPassword: '123'

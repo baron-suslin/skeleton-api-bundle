@@ -1,0 +1,6 @@
+League\Bundle\OAuth2ServerBundle\Model\Client:
+  auth:
+    __construct:
+      0: 'test'
+      1: 'test_client_identifier'
+      2: 'test_client_secret'
